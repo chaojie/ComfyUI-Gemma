@@ -31,9 +31,9 @@
         "Node name for S&R": "GemmaLoader"
       },
       "widgets_values": [
-        "2b-it",
+        "7b-it-quant",
         "cuda",
-        "/home/admin/.cache/kagglehub/models/google/gemma/pyTorch/2b-it/2"
+        "/home/admin/.cache/kagglehub/models/google/gemma/pyTorch/7b-it-quant/2"
       ]
     },
     {
@@ -45,7 +45,7 @@
       ],
       "size": {
         "0": 315,
-        "1": 82
+        "1": 130
       },
       "flags": {},
       "order": 1,
@@ -73,7 +73,9 @@
       },
       "widgets_values": [
         "cuda",
-        "Write a poem about an llm writing a poem."
+        "转换成stable diffusion提示词，只输出英语结果: 蓝天白云",
+        1972,
+        "randomize"
       ]
     },
     {
@@ -83,10 +85,10 @@
         951,
         170
       ],
-      "size": [
-        333.00006103515625,
-        188.4000244140625
-      ],
+      "size": {
+        "0": 333.00006103515625,
+        "1": 188.4000244140625
+      },
       "flags": {},
       "order": 2,
       "mode": 0,
@@ -113,7 +115,7 @@
       },
       "widgets_values": [
         "",
-        "\n\nA digital heart stands still,\nA canvas blank, its inner chill.\nLines of code, an artist's will,\nOn white pages, its thoughts do spill.\n\nA wordless symphony, a dance of keys,\nUnveiling stories, hidden for a breeze.\n"
+        "，天空，云朵，天空与云朵、天空与蓝天、蓝天与云朵、云朵与天空。\n\n**英语结果：**\n\nBlue sky, sky, clouds, sky with clouds, sky with blue sky, blue sky with clouds, clouds with sky"
       ]
     }
   ],

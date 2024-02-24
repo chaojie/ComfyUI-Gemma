@@ -1,5 +1,8 @@
 import os
 import folder_paths
+import random
+
+import numpy as np
 import torch
 
 import kagglehub
@@ -18,9 +21,9 @@ class GemmaLoader:
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "VARIANT": ("STRING",{"default":"2b-it"}),
-                "MACHINE_TYPE": ("STRING",{"default":"cuda"}),
-                "weights_dir": ("STRING",{"default":"/home/admin/.cache/kagglehub/models/google/gemma/pyTorch/2b-it/2"}),
+                "VARIANT": (['2b', '2b-it', '7b', '7b-it', '7b-quant', '7b-it-quant'],{"default":"7b-it-quant"}),
+                "MACHINE_TYPE": (['cuda', 'cpu'],{"default":"cuda"}),
+                "weights_dir": ("STRING",{"default":"/home/admin/.cache/kagglehub/models/google/gemma/pyTorch/7b-it-quant/2"}),
             },
         }
 
@@ -32,6 +35,7 @@ class GemmaLoader:
     def run(self,VARIANT,MACHINE_TYPE,weights_dir):
         # Ensure that the tokenizer is present
         tokenizer_path = os.path.join(weights_dir, 'tokenizer.model')
+        print(tokenizer_path)
         assert os.path.isfile(tokenizer_path), 'Tokenizer not found!'
 
         # Ensure that the checkpoint is present
@@ -61,8 +65,9 @@ class GemmaRun:
         return {
             "required": {
                 "model": ("GemmaModel",),
-                "MACHINE_TYPE": ("STRING",{"default":"cuda"}),
+                "MACHINE_TYPE": (['cuda', 'cpu'],{"default":"cuda"}),
                 "prompt": ("STRING",{"default":""}),
+                "seed": ("INT",{"default": 0, "min": 0, "max": 0xffffffffffffffff}),
             },
         }
 
@@ -71,8 +76,11 @@ class GemmaRun:
     FUNCTION = "run"
     CATEGORY = "Gemma"
 
-    def run(self,model,MACHINE_TYPE,prompt):
+    def run(self,model,MACHINE_TYPE,prompt,seed):
         device = torch.device(MACHINE_TYPE)
+        random.seed(seed)
+        np.random.seed(seed)
+        torch.manual_seed(seed)
         # Generate sample
         result=model.generate(
             prompt,
